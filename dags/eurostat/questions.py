@@ -16,10 +16,13 @@ from eurostat.metrics import COUNTRIES, collect_evidence, direction
 from eurostat.report import atomic_write, evidence_sentence
 
 logger = logging.getLogger(__name__)
-QA_VERSION = "ask-eurostat-v2"
+QA_VERSION = "ask-eurostat-v3"
 DEFAULT_QUESTION = "Compare Germany and France employment rates in the latest available year."
 PLAN_PROMPT = """Route one question to a bounded operation on the stored Eurostat dataset.
 Return only a query plan. Never write SQL, answer the question, or invent observations.
+GDP means current-price GDP in EUR, not real growth, GDP per capita, or other currencies.
+Employment means the employed share of the population aged fifteen to sixty-four, both sexes;
+employment headcounts, other ages, unemployment and inflation are unsupported indicators.
 trend means annual observations over a year range; compare means observations for the selected
 countries in one year; change means endpoint values and total change over a range.
 Select one or both supported indicators and only the requested countries. If the question asks
