@@ -1,5 +1,7 @@
 # Eurostat Economic Indicators ETL
 
+[![Pipeline checks](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/workflows/ci.yml/badge.svg)](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/workflows/ci.yml)
+
 A reproducible batch pipeline that turns Eurostat GDP and employment API responses into validated PostgreSQL tables. Apache Airflow schedules the work, retries failures, and exposes a readable data preview after each successful load.
 
 **Python 3.11 | Apache Airflow 2.10.2 | PostgreSQL 15 | Docker Compose**
@@ -148,7 +150,7 @@ docker compose exec -T airflow-scheduler python -m ruff format --check dags test
 
 Use your configured password in `TEST_DATABASE_URL` if it differs. Database tests create unique temporary schemas and clean them up; they do not write to the analytics tables in `public`.
 
-[GitHub Actions](.github/workflows/ci.yml) runs the build, configuration checks, linting, offline tests, PostgreSQL tests, and DAG checks on pushes and pull requests. Live Eurostat access is an opt-in manual check, so normal CI does not depend on the upstream API. The workflow has been prepared and its commands verified locally; a hosted GitHub run is pending publication.
+[GitHub Actions](.github/workflows/ci.yml) runs the build, configuration checks, linting, offline tests, PostgreSQL tests, and DAG checks on pushes and pull requests. Live Eurostat access is an opt-in manual check, so normal CI does not depend on the upstream API. The [hosted GitHub Actions run](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/runs/41709478225) passed all 52 tests, formatting checks, the image build, and initialization against a fresh PostgreSQL database.
 
 See [verification results](docs/VERIFICATION.md) and [operations instructions](docs/OPERATIONS.md) for a fresh-volume check using an isolated Compose project.
 

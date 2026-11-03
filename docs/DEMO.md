@@ -4,19 +4,23 @@
 2. **Architecture (15 seconds):** Show the README diagram. Eurostat supplies data; Python transforms and validates it; PostgreSQL stores it; Airflow schedules and monitors the tasks.
 3. **Workflow (20 seconds):** Select the latest successful run. Show create_tables feeding independent GDP and employment branches, with preview_data waiting for both.
 4. **Result (15 seconds):** Open preview_data logs and show country figures, record counts, and Germany GDP history. Show one chart.
-5. **Reliability (20 seconds):** Explain primary keys and conflict updates. Show the rollback test and CI workflow. Distinguish locally verified commands from hosted CI, which is pending publication.
+5. **Reliability (20 seconds):** Explain primary keys and conflict updates. Show the rollback test and CI workflow. Show the passing hosted GitHub Actions run and distinguish automated checks from the separate live API test.
 6. **Tradeoff (5 seconds):** Every run refreshes a small historical window to capture revisions. Observations are annual; execution is daily.
 
 ## CV wording
 
 Built a Dockerized ETL pipeline using Python, Apache Airflow, and PostgreSQL to ingest and validate Eurostat GDP and employment data, with transactional upserts, retries, source metadata, automated tests, and reproducible analysis charts.
 
-## Repository metadata for later publication
+## Published repository
 
-Suggested name: eurostat-etl-airflow
+https://github.com/hassanzafarr/eurostat-etl-airflow
+
+Name: eurostat-etl-airflow
 
 Description: Reproducible Eurostat GDP and employment ETL with Python, Airflow, PostgreSQL, Docker, validation, transactional upserts, and automated tests.
 
 Topics: python, apache-airflow, postgresql, docker-compose, etl, data-engineering, eurostat, data-quality
 
-Creating a remote, pushing, pinning the repository, and obtaining a hosted Actions result are publication steps to perform later.
+The public repository has been created and its description and topics configured.
+
+To feature it on your GitHub profile, open [your profile](https://github.com/hassanzafarr), click **Customize your pins**, select **eurostat-etl-airflow**, and save. GitHub's supported API does not expose profile-pin updates, so this profile action is a manual step. See [GitHub's pinning instructions](https://docs.github.com/en/account-and-profile/how-tos/profile-customization/pinning-items-to-your-profile).

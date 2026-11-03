@@ -14,7 +14,7 @@ Verified locally on 3 November 2026 using Docker Desktop with Linux containers o
 | Actual scheduler-run workflow on fresh data | Four successful tasks |
 | Preview retrieval through authenticated Airflow log API | Passed |
 | Upgrade of existing local database and real workflow | Passed; 77 records remain in each table |
-| Hosted GitHub Actions | Pending publication; no remote run claimed |
+| Hosted GitHub Actions | [Passed all 52 tests and build checks](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/runs/41709478225) |
 
 [Machine-readable fresh-stack result](verification.json) includes the run identifier, task states, verification timestamp, and dataset coverage. Screenshots show the actual successful run from that fresh stack. The original stack retained its existing database volume and was also validated after the update.
 

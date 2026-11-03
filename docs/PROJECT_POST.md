@@ -10,8 +10,8 @@ One useful lesson: a run can appear successful while loading no useful data unle
 
 The demonstration covers six countries plus the EU aggregate. GDP uses current prices, so changes are nominal rather than inflation-adjusted.
 
-Repository: add the public repository link after publishing.
+Repository: https://github.com/hassanzafarr/eurostat-etl-airflow
 
 #DataEngineering #Python #ApacheAirflow #PostgreSQL #ETL
 
-Before posting, attach the workflow screenshot and one chart. Add a passing hosted-CI claim only after GitHub Actions has actually run successfully.
+GitHub Actions has passed all 52 tests, the image build, and formatting checks. Before posting, attach the workflow screenshot and one chart.
