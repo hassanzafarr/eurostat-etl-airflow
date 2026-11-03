@@ -14,4 +14,4 @@ Repository: https://github.com/hassanzafarr/eurostat-etl-airflow
 
 #DataEngineering #Python #ApacheAirflow #PostgreSQL #ETL
 
-GitHub Actions passed all 95 tests, including 22 golden evaluations of AI output, together with the Docker build and formatting checks. Before posting, attach the workflow screenshot and one chart.
+GitHub Actions passed all 121 tests, including 22 golden evaluations of AI output, together with the Docker build and formatting checks. Before posting, attach the workflow screenshot and one chart.

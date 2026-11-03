@@ -176,7 +176,7 @@ docker compose exec -T airflow-scheduler python -m ruff format --check dags test
 
 Use your configured password in `TEST_DATABASE_URL` if it differs. Database tests create unique temporary schemas and clean them up; they do not write to the analytics tables in `public`.
 
-[GitHub Actions](.github/workflows/ci.yml) runs the build, configuration checks, linting, offline tests, PostgreSQL tests, and DAG checks on pushes and pull requests. Live Eurostat access is an opt-in manual check, so normal CI does not depend on the upstream API. The [hosted GitHub Actions run](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/runs/41716169375) passed all 95 tests, formatting checks, the image build, and initialization against a fresh PostgreSQL database.
+[GitHub Actions](.github/workflows/ci.yml) runs the build, configuration checks, linting, offline tests, PostgreSQL tests, and DAG checks on pushes and pull requests. Live Eurostat access is an opt-in manual check, so normal CI does not depend on the upstream API. The [hosted GitHub Actions run](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/runs/41718240379) passed all 121 tests, formatting checks, the image build, and initialization against a fresh PostgreSQL database.
 
 See [verification results](docs/VERIFICATION.md) and [operations instructions](docs/OPERATIONS.md) for a fresh-volume check using an isolated Compose project.
 
