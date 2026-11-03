@@ -6,10 +6,10 @@ Verified locally on 3 November 2026 using Docker Desktop with Linux containers o
 |---|---|
 | Explicit Dockerfile dependency installation | Image built successfully |
 | Fresh database volume | New eurostat-verify Compose project initialized both databases |
-| Offline parser, contract, HTTP and AI tests | 85 cases passed, including 22 golden AI evaluations |
+| Offline parser, contract, HTTP and AI tests | 110 cases passed, including 22 golden AI evaluations and controlled Q&A checks |
 | Real PostgreSQL integration tests | 9 cases passed, including SQL report metrics and caching |
-| Airflow import and dependency checks | 1 case passed |
-| Complete container test suite | 95 passed |
+| Airflow import, dependency and question-form checks | 2 cases passed |
+| Complete container test suite | 121 passed |
 | Ruff lint and format checks | Passed |
 | Initial ETL on a fresh database | Four tasks succeeded before AI reporting was added |
 | Updated scheduler workflow with Haiku reporting | Five successful tasks; validated commentary reused from cache |
@@ -51,3 +51,7 @@ This is one successful source snapshot plus automated regressions, not proof of 
 ## AI evaluation evidence
 
 The AI tests cover numeric-prose rejection, evidence IDs, trend directions, causal/ranking wording, source-flag interpretation, truncation/refusals, API error redaction, provider unavailability, disabled/missing-key reports, historical revisions, missing-year comparisons, and persistent caching. A real Haiku request was reviewed, and the subsequent scheduler run reused validated commentary with zero API tokens for that run. The captured sample and report screenshot are in AI_REPORT_SAMPLE.md.
+
+## Manual question form
+
+The ask_eurostat form was verified in the live Airflow UI. A real Haiku question about Germany GDP between 2015 and 2025 succeeded, returning an application-calculated nominal change of 46.39% with exact endpoint values and a source link. Repeating the same question used the cache with zero provider tokens. Tests cover bounded plans, disallowed SQL/indicators/countries, missing years/endpoints, percent versus percentage-point changes, citation validation, unavailable credentials, and cache invalidation.

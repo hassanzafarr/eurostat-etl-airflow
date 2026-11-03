@@ -97,6 +97,14 @@ Open **artifacts/insights/latest.html** locally for commentary, evidence, source
 
 SQL computes figures and annual changes. Claude selects evidence-linked findings and writes qualitative wording; the application rejects numeric prose, unknown references, incorrect trend directions, and common unsupported claims. Successful commentary is cached when evidence, model, and prompt match. No key or unavailable API produces a clearly labelled report with verified data and plots. Use `--require-ai` to require live or cached commentary. The key stays local and is not configured in GitHub CI.
 
+## Ask Claude directly in Airflow
+
+Open [Ask Eurostat](http://localhost:8080/dags/ask_eurostat/trigger), enter **Your question**, and click **Trigger**. Select the new run, then **answer_question > Logs**, and search for **ASK EUROSTAT ANSWER**.
+
+Examples: compare Germany and France employment in the latest year; show Germany GDP since 2015; ask how Germany GDP changed between 2015 and 2025. The separate `ask_eurostat` DAG reads existing data, accepts only bounded operations, and returns a cited answer with verified figures. It does not run on a schedule or modify source observations. Repeated questions reuse a cache when evidence and model/prompt settings match.
+
+[Question form, examples and limits](docs/ASK_EUROSTAT.md)
+
 ## Reliability and loading strategy
 
 - **Full historical extraction with upserts:** every run requests the configured series from 2015 onward, so revisions to older years are picked up. This is not incremental extraction.

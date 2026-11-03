@@ -94,23 +94,15 @@ def validate_commentary(commentary, facts):
     return commentary
 
 
-def request_commentary(facts, api_key, model=DEFAULT_MODEL, post=None):
-    """One bounded request, with no silent model fallback or automatic paid retries."""
+def request_json(system, payload, schema, api_key, model=DEFAULT_MODEL, post=None, max_tokens=2048):
+    """Send one bounded structured request without logging credentials or provider bodies."""
     if not api_key or not api_key.strip():
         raise InsightError("An Anthropic API key is required")
     if not model.startswith("claude-haiku-"):
         raise InsightError("Configure a Claude Haiku model")
-    public_facts = [
-        {
-            k: value
-            for k, value in fact.items()
-            if k not in {"raw_value", "source_status", "source_updated", "source_url"}
-        }
-        for fact in facts
-    ]
-    content = json.dumps({"facts": public_facts}, sort_keys=True)
-    if len(content) > 30000:
-        raise InsightError("Report evidence exceeds the bounded input size")
+    content = json.dumps(payload, sort_keys=True)
+    if len(content) > 50000:
+        raise InsightError("Evidence exceeds the bounded input size")
     try:
         response = (post or requests.post)(
             "https://api.anthropic.com/v1/messages",
@@ -121,13 +113,11 @@ def request_commentary(facts, api_key, model=DEFAULT_MODEL, post=None):
             },
             json={
                 "model": model,
-                "max_tokens": 2048,
+                "max_tokens": max_tokens,
                 "thinking": {"type": "disabled"},
-                "system": SYSTEM_PROMPT,
+                "system": system,
                 "messages": [{"role": "user", "content": content}],
-                "output_config": {
-                    "format": {"type": "json_schema", "schema": output_schema(facts)}
-                },
+                "output_config": {"format": {"type": "json_schema", "schema": schema}},
             },
             timeout=(10, 90),
         )
@@ -136,21 +126,42 @@ def request_commentary(facts, api_key, model=DEFAULT_MODEL, post=None):
             "Claude request could not complete; check connectivity or retry later"
         ) from None
     if response.status_code != 200:
-        # Provider bodies can echo user input: never persist or log them, headers, or key values.
         raise InsightError(
             f"Claude request failed with HTTP {response.status_code}; check API access and billing"
         )
     try:
         body = response.json()
         if body.get("stop_reason") != "end_turn":
-            raise InsightError("Claude report was refused or truncated")
+            raise InsightError("Claude output was refused or truncated")
         text = "".join(block["text"] for block in body["content"] if block.get("type") == "text")
-        commentary = validate_commentary(json.loads(text), facts)
+        output = json.loads(text)
         usage = {
             key: int(body.get("usage", {}).get(key, 0)) for key in ("input_tokens", "output_tokens")
         }
     except InsightError:
         raise
     except (KeyError, TypeError, ValueError):
-        raise InsightError("Claude returned an invalid or ungrounded report") from None
-    return {"commentary": commentary, "usage": usage, "response_model": body.get("model", model)}
+        raise InsightError("Claude returned invalid structured output") from None
+    return {"output": output, "usage": usage, "response_model": body.get("model", model)}
+
+
+def request_commentary(facts, api_key, model=DEFAULT_MODEL, post=None):
+    """One bounded request, with no silent model fallback or automatic paid retries."""
+    public_facts = [
+        {
+            k: value
+            for k, value in fact.items()
+            if k not in {"raw_value", "source_status", "source_updated", "source_url"}
+        }
+        for fact in facts
+    ]
+    if len(json.dumps(public_facts)) > 30000:
+        raise InsightError("Report evidence exceeds the bounded input size")
+    response = request_json(
+        SYSTEM_PROMPT, {"facts": public_facts}, output_schema(facts), api_key, model, post
+    )
+    return {
+        "commentary": validate_commentary(response["output"], facts),
+        "usage": response["usage"],
+        "response_model": response["response_model"],
+    }

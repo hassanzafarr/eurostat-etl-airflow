@@ -68,4 +68,4 @@ Use `--require-ai` when a check must fail unless validated live or cached commen
 docker compose exec -T airflow-scheduler python scripts/generate_report.py --offline
 ```
 
-Storage/rendering errors still fail the report task visibly. A chatbot, autonomous repair agent, and interactive BI server remain separate future extensions.
+Storage/rendering errors still fail the report task visibly. A separate manual question DAG is now available; see [Ask Eurostat](ASK_EUROSTAT.md). Continuous multi-turn chat, autonomous repair, and an interactive BI server remain separate future extensions.

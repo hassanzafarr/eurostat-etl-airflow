@@ -30,3 +30,17 @@ def test_dag_imports_and_enforces_dependencies():
         assert not dag.get_task(task_id).do_xcom_push
     assert not dag.catchup
     assert dag.max_active_runs == 1
+
+
+def test_question_dag_is_manual_and_exposes_validated_question_param():
+    pytest.importorskip("airflow")
+    from airflow.models import DagBag
+
+    bag = DagBag(dag_folder=str(Path(__file__).parents[1] / "dags"), include_examples=False)
+    assert not bag.import_errors
+    dag = bag.get_dag("ask_eurostat")
+    assert dag.schedule_interval is None
+    assert dag.task_ids == ["answer_question"]
+    assert dag.get_task("answer_question").retries == 0
+    assert not dag.get_task("answer_question").do_xcom_push
+    assert dag.params.get_param("question").schema["maxLength"] == 1500
