@@ -1,0 +1,84 @@
+{
+  "class": "dataset",
+  "version": "2.0",
+  "label": "SYNTHETIC TEST FIXTURE - not real Eurostat observations",
+  "updated": "2025-01-01T00:00:00+0100",
+  "id": [
+    "freq",
+    "unit",
+    "na_item",
+    "geo",
+    "time"
+  ],
+  "size": [
+    1,
+    1,
+    1,
+    7,
+    2
+  ],
+  "dimension": {
+    "freq": {
+      "category": {
+        "index": {
+          "A": 0
+        }
+      }
+    },
+    "unit": {
+      "category": {
+        "index": {
+          "CP_MEUR": 0
+        }
+      }
+    },
+    "na_item": {
+      "category": {
+        "index": {
+          "B1GQ": 0
+        }
+      }
+    },
+    "geo": {
+      "category": {
+        "index": {
+          "DE": 0,
+          "ES": 1,
+          "EU27_2020": 2,
+          "FR": 3,
+          "IT": 4,
+          "NL": 5,
+          "PL": 6
+        }
+      }
+    },
+    "time": {
+      "category": {
+        "index": {
+          "2023": 0,
+          "2024": 1
+        }
+      }
+    }
+  },
+  "value": {
+    "0": 1000,
+    "1": 1001,
+    "2": 1002,
+    "3": 1003,
+    "4": 1004,
+    "5": 1005,
+    "6": 1006,
+    "7": 1007,
+    "8": 1008,
+    "9": 1009,
+    "10": 1010,
+    "11": 1011,
+    "12": 1012,
+    "13": 1013
+  },
+  "status": {
+    "0": "p",
+    "13": "e"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "class": "dataset",
+  "version": "2.0",
+  "label": "SYNTHETIC TEST FIXTURE - not real Eurostat observations",
+  "updated": "2025-01-01T00:00:00+0100",
+  "id": [
+    "freq",
+    "indic_em",
+    "sex",
+    "age",
+    "unit",
+    "geo",
+    "time"
+  ],
+  "size": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    7,
+    2
+  ],
+  "dimension": {
+    "freq": {
+      "category": {
+        "index": {
+          "A": 0
+        }
+      }
+    },
+    "indic_em": {
+      "category": {
+        "index": {
+          "EMP_LFS": 0
+        }
+      }
+    },
+    "sex": {
+      "category": {
+        "index": {
+          "T": 0
+        }
+      }
+    },
+    "age": {
+      "category": {
+        "index": {
+          "Y15-64": 0
+        }
+      }
+    },
+    "unit": {
+      "category": {
+        "index": {
+          "PC_POP": 0
+        }
+      }
+    },
+    "geo": {
+      "category": {
+        "index": {
+          "DE": 0,
+          "ES": 1,
+          "EU27_2020": 2,
+          "FR": 3,
+          "IT": 4,
+          "NL": 5,
+          "PL": 6
+        }
+      }
+    },
+    "time": {
+      "category": {
+        "index": {
+          "2023": 0,
+          "2024": 1
+        }
+      }
+    }
+  },
+  "value": {
+    "0": 60.0,
+    "1": 60.1,
+    "2": 60.2,
+    "3": 60.3,
+    "4": 60.4,
+    "5": 60.5,
+    "6": 60.6,
+    "7": 60.7,
+    "8": 60.8,
+    "9": 60.9,
+    "10": 61.0,
+    "11": 61.1,
+    "12": 61.2,
+    "13": 61.3
+  },
+  "status": {
+    "0": "p",
+    "13": "e"
+  }
+}

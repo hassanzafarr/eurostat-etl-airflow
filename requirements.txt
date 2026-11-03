@@ -1,0 +1,5 @@
+# Runtime dependencies matched to the tested Airflow image constraints.
+requests==2.32.3
+pandas==2.1.4
+psycopg2-binary==2.9.9
+apache-airflow-providers-postgres==5.12.0

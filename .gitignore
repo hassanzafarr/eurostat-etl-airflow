@@ -1,0 +1,17 @@
+logs/
+plugins/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+*.log
+
+.env.*
+!.env.example
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+artifacts/
+QUESTIONS_README.md

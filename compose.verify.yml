@@ -1,0 +1,9 @@
+# Use with: docker compose -p eurostat-verify -f docker-compose.yml -f compose.verify.yml ...
+# The project name isolates the database volume. Ports isolate the UI from the normal stack.
+services:
+  postgres:
+    ports: !override
+      - "127.0.0.1:55432:5432"
+  airflow-webserver:
+    ports: !override
+      - "127.0.0.1:18080:8080"
