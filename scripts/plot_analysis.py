@@ -46,11 +46,27 @@ def style(ax, title, subtitle, ylabel):
     ax.tick_params(colors="#52606d", length=0, pad=8)
 
 
+def save_figure(fig, destination, name):
+    fig.savefig(destination / f"{name}.png", dpi=180)
+    svg = destination / f"{name}.svg"
+    fig.savefig(svg, metadata={"Date": None})
+    # Stable IDs and normalized whitespace keep regenerated figures reviewable in Git.
+    svg.write_text(
+        "\n".join(line.rstrip() for line in svg.read_text(encoding="utf-8").splitlines()) + "\n",
+        encoding="utf-8",
+    )
+
+
 def main():
     images = ROOT / "docs" / "images"
     images.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update(
-        {"font.family": "DejaVu Sans", "font.size": 11, "figure.facecolor": "white"}
+        {
+            "font.family": "DejaVu Sans",
+            "font.size": 11,
+            "figure.facecolor": "white",
+            "svg.hashsalt": "eurostat-etl",
+        }
     )
     gdp = [row for row in read_data("eurostat_gdp") if row["geo"] == "DE"]
     years = [int(row["time_period"]) for row in gdp]
@@ -84,8 +100,7 @@ def main():
         color="#52606d",
     )
     fig.subplots_adjust(left=0.10, right=0.96, bottom=0.20, top=0.78)
-    for extension in ("png", "svg"):
-        fig.savefig(images / f"germany-gdp.{extension}", dpi=180)
+    save_figure(fig, images, "germany-gdp")
     plt.close(fig)
     data = read_data("eurostat_employment")
     fig, ax = plt.subplots(figsize=(11, 6.5))
@@ -116,8 +131,7 @@ def main():
         color="#52606d",
     )
     fig.subplots_adjust(left=0.10, right=0.96, bottom=0.20, top=0.78)
-    for extension in ("png", "svg"):
-        fig.savefig(images / f"employment-trends.{extension}", dpi=180)
+    save_figure(fig, images, "employment-trends")
     plt.close(fig)
     print("Rendered two analysis figures in docs/images (PNG and SVG)")
 
