@@ -1,0 +1,27 @@
+{
+  "verified_at_utc": "2026-11-03T19:57:38.542554+00:00",
+  "run_id": "portfolio_validation_81b2106551",
+  "state": "success",
+  "tasks": {
+    "create_tables": "success",
+    "etl_employment": "success",
+    "etl_gdp": "success",
+    "preview_data": "success"
+  },
+  "preview_log_verified": true,
+  "schedule_paused": true,
+  "datasets": {
+    "eurostat_gdp": {
+      "observations": 77,
+      "geographies": 7,
+      "first_year": "2015",
+      "last_year": "2025"
+    },
+    "eurostat_employment": {
+      "observations": 77,
+      "geographies": 7,
+      "first_year": "2015",
+      "last_year": "2025"
+    }
+  }
+}
