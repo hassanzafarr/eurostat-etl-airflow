@@ -32,3 +32,13 @@ ALTER TABLE eurostat_gdp ADD COLUMN IF NOT EXISTS source_status TEXT;
 ALTER TABLE eurostat_gdp ADD COLUMN IF NOT EXISTS source_updated TEXT;
 ALTER TABLE eurostat_employment ADD COLUMN IF NOT EXISTS source_status TEXT;
 ALTER TABLE eurostat_employment ADD COLUMN IF NOT EXISTS source_updated TEXT;
+
+-- Optional Claude commentary is cached separately from source observations.
+CREATE TABLE IF NOT EXISTS eurostat_insight_reports (
+    report_key TEXT PRIMARY KEY,
+    model TEXT NOT NULL,
+    prompt_version TEXT NOT NULL,
+    ai_status TEXT NOT NULL CHECK (ai_status IN ('generated', 'not_configured', 'disabled', 'unavailable')),
+    report JSONB NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

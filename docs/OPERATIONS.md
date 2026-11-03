@@ -26,7 +26,7 @@ Open http://localhost:8080/health. metadatabase and scheduler should be healthy.
 docker compose exec -T airflow-scheduler python scripts/smoke_test.py
 ```
 
-The script triggers a real manual run, temporarily unpauses the DAG if required, checks four successful tasks and readable preview logs, and restores its original pause state. Use username/password arguments for customized credentials.
+The script triggers a real manual run, temporarily unpauses the DAG if required, checks five successful tasks and readable preview logs, and restores its original pause state. Use username/password arguments for customized credentials.
 
 ## Fresh database verification
 
@@ -62,3 +62,7 @@ On macOS/Linux, use `export AIRFLOW_LOG_DIR=./artifacts/verify-logs` and `unset 
 | Old run lacks preview_data | Select a run created after the task was introduced. |
 
 Compare logs, schedules, and exported metadata in UTC. The UI can display a selected local timezone.
+
+## AI report checks
+
+Use `python scripts/smoke_test.py --require-ai` inside the scheduler container to require validated live or cached commentary. Without that flag, a correctly labelled data-only fallback is accepted. Open artifacts/insights/latest.html for plots; Airflow task logs contain the text report. Key setup, cache behavior, status meanings, and offline generation are documented in [AI_INTEGRATION.md](AI_INTEGRATION.md).

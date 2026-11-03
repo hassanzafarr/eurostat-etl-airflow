@@ -7,6 +7,7 @@ from airflow.operators.python import PythonOperator
 from eurostat.config import DATASETS
 from eurostat.database import create_tables, load_to_postgres
 from eurostat.etl import extract_eurostat, parse_jsonstat_to_df, validate_data
+from eurostat.insights import generate_insights
 from eurostat.preview import preview_data
 
 
@@ -49,3 +50,12 @@ with DAG(
             do_xcom_push=False,
         )
         init >> task >> preview
+
+    insights = PythonOperator(
+        task_id="generate_insights",
+        python_callable=generate_insights,
+        do_xcom_push=False,
+        retries=0,
+        execution_timeout=timedelta(minutes=3),
+    )
+    preview >> insights

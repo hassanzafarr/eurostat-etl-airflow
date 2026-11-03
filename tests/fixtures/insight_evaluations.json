@@ -1,0 +1,577 @@
+{
+  "facts": [
+    {
+      "id": "gdp_DE_2025",
+      "country_code": "DE",
+      "country": "Germany",
+      "indicator": "gdp",
+      "year": 2025,
+      "value": "1234.00",
+      "change": "2.00",
+      "direction": "increased",
+      "previous_year": 2024,
+      "unit": "billion EUR, current prices",
+      "change_unit": "nominal percent",
+      "source_status": "p",
+      "source_url": "https://ec.europa.eu/eurostat/",
+      "source_updated": "synthetic"
+    },
+    {
+      "id": "employment_DE_2025",
+      "country_code": "DE",
+      "country": "Germany",
+      "indicator": "employment",
+      "year": 2025,
+      "value": "75.00",
+      "change": "-1.00",
+      "direction": "decreased",
+      "previous_year": 2024,
+      "unit": "percent of population aged 15-64, both sexes",
+      "change_unit": "percentage points",
+      "source_status": "p",
+      "source_url": "https://ec.europa.eu/eurostat/",
+      "source_updated": "synthetic"
+    },
+    {
+      "id": "gdp_FR_2025",
+      "country_code": "FR",
+      "country": "France",
+      "indicator": "gdp",
+      "year": 2025,
+      "value": "999.00",
+      "change": "0.00",
+      "direction": "unchanged",
+      "previous_year": 2024,
+      "unit": "billion EUR, current prices",
+      "change_unit": "nominal percent",
+      "source_status": "p",
+      "source_url": "https://ec.europa.eu/eurostat/",
+      "source_updated": "synthetic"
+    }
+  ],
+  "cases": [
+    {
+      "name": "grounded_findings",
+      "valid": true,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "invented_year",
+      "valid": false,
+      "output": {
+        "summary": "In 2099 the economy grew.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "numeric_growth",
+      "valid": false,
+      "output": {
+        "summary": "GDP increased 12%.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "causal_claim",
+      "valid": false,
+      "output": {
+        "summary": "GDP rose because of policy changes.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "forecast",
+      "valid": false,
+      "output": {
+        "summary": "We forecast further increases.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unemployment",
+      "valid": false,
+      "output": {
+        "summary": "Unemployment improved.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "ranking",
+      "valid": false,
+      "output": {
+        "summary": "Germany has the highest GDP.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty_summary",
+      "valid": false,
+      "output": {
+        "summary": "",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "overlong_summary",
+      "valid": false,
+      "output": {
+        "summary": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "wrong_trend_decreased",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "wrong_trend_unchanged",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "wrong_trend_unavailable",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "unavailable",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown_reference",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2099",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "duplicate_reference",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "too_few_findings",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "numbers_in_finding",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "GDP is 1234 billion euros."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unexpected_sql_field",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison.",
+            "sql": "DROP TABLE eurostat_gdp"
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing_summary",
+      "valid": false,
+      "output": {
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown_direction",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "rocket",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "alternate_valid_summary",
+      "valid": true,
+      "output": {
+        "summary": "This is a descriptive comparison of the available annual observations.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "misinterpreted_flag",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The employment observation is provisional."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unsupported_ranking",
+      "valid": false,
+      "output": {
+        "summary": "The selected series show mixed year-on-year movements.",
+        "findings": [
+          {
+            "fact_id": "gdp_DE_2025",
+            "direction": "increased",
+            "commentary": "The country shows stronger gains."
+          },
+          {
+            "fact_id": "employment_DE_2025",
+            "direction": "decreased",
+            "commentary": "The observed change follows the supplied annual comparison."
+          },
+          {
+            "fact_id": "gdp_FR_2025",
+            "direction": "unchanged",
+            "commentary": "The observed change follows the supplied annual comparison."
+          }
+        ]
+      }
+    }
+  ]
+}

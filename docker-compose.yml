@@ -5,6 +5,10 @@ x-airflow-common:
   environment:
     &airflow-common-env
     PYTHONPATH: /opt/airflow/dags
+    ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-haiku-5-5}
+    ENABLE_AI_INSIGHTS: ${ENABLE_AI_INSIGHTS:-true}
+    EUROSTAT_REPORT_DIR: /opt/airflow/artifacts/insights
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${POSTGRES_PASSWORD:-airflow}@postgres/airflow
     AIRFLOW_CONN_EUROSTAT_POSTGRES: postgresql://airflow:${POSTGRES_PASSWORD:-airflow}@postgres:5432/eurostat
@@ -23,6 +27,7 @@ x-airflow-common:
     - ./pyproject.toml:/opt/airflow/pyproject.toml:ro
     - ./scripts:/opt/airflow/scripts:ro
     - ./docs:/opt/airflow/docs
+    - ./artifacts:/opt/airflow/artifacts
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -89,7 +94,9 @@ services:
       - -c
       - |
         mkdir -p /sources/logs /sources/dags /sources/plugins
+        mkdir -p /sources/artifacts
         chown -R "${AIRFLOW_UID:-50000}:0" /sources/{logs,dags,plugins}
+        chown -R "${AIRFLOW_UID:-50000}:0" /sources/artifacts
         exec /entrypoint airflow version
     environment:
       <<: *airflow-common-env

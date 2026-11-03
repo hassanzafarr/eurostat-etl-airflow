@@ -33,3 +33,9 @@ Interpret flags using the source dataset's metadata. Explicit null observations 
 - The EU aggregate includes the selected member countries; summing it with them double-counts.
 - These tables store latest known observations. Upserts replace previous revisions; old versions are not preserved.
 - Rows omitted by later responses remain in the database. Use source_updated and snapshot_ts when assessing freshness.
+
+## Derived report cache
+
+`eurostat_insight_reports` stores optional economic reports separately from source observations. Columns are `report_key` (primary key), `model`, `prompt_version`, `ai_status`, JSONB `report`, and `updated_at` in UTC. Successful commentary can be reused for matching evidence and prompt/model settings. Disabled/unavailable artifacts use distinct storage keys so they do not evict successful generations.
+
+The JSON contains SQL-derived facts, chart history, references, validated commentary when available, per-run token usage, and generation/cache timestamps. It contains no API keys or authorization headers.

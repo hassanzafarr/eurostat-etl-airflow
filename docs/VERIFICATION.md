@@ -6,17 +6,20 @@ Verified locally on 3 November 2026 using Docker Desktop with Linux containers o
 |---|---|
 | Explicit Dockerfile dependency installation | Image built successfully |
 | Fresh database volume | New eurostat-verify Compose project initialized both databases |
-| Offline parser, contract, and HTTP tests | 47 cases passed |
-| Real PostgreSQL integration tests | 4 cases passed |
+| Offline parser, contract, HTTP and AI tests | 85 cases passed, including 22 golden AI evaluations |
+| Real PostgreSQL integration tests | 9 cases passed, including SQL report metrics and caching |
 | Airflow import and dependency checks | 1 case passed |
-| Complete container test suite | 52 passed |
+| Complete container test suite | 95 passed |
 | Ruff lint and format checks | Passed |
-| Actual scheduler-run workflow on fresh data | Four successful tasks |
+| Initial ETL on a fresh database | Four tasks succeeded before AI reporting was added |
+| Updated scheduler workflow with Haiku reporting | Five successful tasks; validated commentary reused from cache |
+| Live Claude Haiku request | claude-haiku-5-5 returned a validated report |
+| Report plots | HTML contains two rendered plots from the same SQL snapshot |
 | Preview retrieval through authenticated Airflow log API | Passed |
 | Upgrade of existing local database and real workflow | Passed; 77 records remain in each table |
 | Hosted GitHub Actions | [Passed all 52 tests and build checks](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/runs/41709478225) |
 
-[Machine-readable fresh-stack result](verification.json) includes the run identifier, task states, verification timestamp, and dataset coverage. Screenshots show the actual successful run from that fresh stack. The original stack retained its existing database volume and was also validated after the update.
+[Machine-readable latest result](verification.json) includes the five-task run identifier, AI model/status/cache result, verification timestamp, and dataset coverage. Current screenshots show that successful run. The original fresh-stack check established startup reproducibility; the updated stack retained the existing database and was validated again with Haiku reporting.
 
 The database tests create isolated temporary schemas. They prove repeated loads do not duplicate keys, revised values update, records absent from a partial load remain, source flags survive loading, schema application is repeatable, and a failure on the second insert page rolls back the first page.
 
@@ -44,3 +47,7 @@ Use the correct base URL and run identifier for the stack whose evidence you wan
 ## Boundaries
 
 This is one successful source snapshot plus automated regressions, not proof of production uptime or performance at large scale. Ordinary CI uses synthetic API fixtures so source downtime or revisions do not destabilize unrelated code checks. Live source access is tested separately.
+
+## AI evaluation evidence
+
+The AI tests cover numeric-prose rejection, evidence IDs, trend directions, causal/ranking wording, source-flag interpretation, truncation/refusals, API error redaction, provider unavailability, disabled/missing-key reports, historical revisions, missing-year comparisons, and persistent caching. A real Haiku request was reviewed, and the subsequent scheduler run reused validated commentary with zero API tokens for that run. The captured sample and report screenshot are in AI_REPORT_SAMPLE.md.

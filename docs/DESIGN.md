@@ -32,8 +32,14 @@ Fail for empty datasets, incorrect filters, missing configured geographies, dupl
 
 The pinned Airflow 2.10.2 / Python 3.11 runtime reproduces the demonstration; no claim is made that these are the latest supported versions. Review and upgrade dependencies before deployment. Ports bind to localhost; keys and credentials are environment-configurable. One local role owns both databases.
 
-There is no cloud deployment, external failure notification, raw-payload archive, historical revision store, role-separated access control, or cross-dataset atomic publication. The data preview is a task-log report; charts are static analysis rather than an interactive BI application.
+There is no cloud deployment, external failure notification, raw-payload archive, historical revision store, role-separated access control, or cross-dataset atomic publication. The data preview is a task-log report. The optional Claude task adds validated commentary and plots to a standalone HTML artifact; there is no interactive BI server.
 
 ## Future extensions
 
 Raw-object storage, run audit tables, revision history, atomic publication through run identifiers, alert delivery, a reviewed supported Airflow release, and an interactive analytics dashboard. These are future work, not implemented features.
+
+## Optional AI reporting
+
+The fifth task uses SQL-derived evidence and calls Claude Haiku with a bounded structured-output request. Numbers and sources are rendered by the application; AI text references known facts and must pass schema, direction, and prose checks. Qualitative wording still requires human review. Source flags are shown verbatim rather than interpreted by the model.
+
+A persistent cache includes historical source content, flags, update metadata, model and prompt settings. It excludes ingestion timestamps. No automatic paid retries are made. Missing credentials and rejected/unavailable output create a clearly labelled data-and-plot report, keeping source ingestion independent of provider availability. Storage/rendering failures remain visible as task failures. See AI_INTEGRATION.md for controls and limits.

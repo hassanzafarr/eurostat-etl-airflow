@@ -2,14 +2,14 @@
 
 1. **Purpose (15 seconds):** The pipeline collects official European GDP and employment statistics and produces validated tables for SQL analysis.
 2. **Architecture (15 seconds):** Show the README diagram. Eurostat supplies data; Python transforms and validates it; PostgreSQL stores it; Airflow schedules and monitors the tasks.
-3. **Workflow (20 seconds):** Select the latest successful run. Show create_tables feeding independent GDP and employment branches, with preview_data waiting for both.
-4. **Result (15 seconds):** Open preview_data logs and show country figures, record counts, and Germany GDP history. Show one chart.
+3. **Workflow (20 seconds):** Select the latest successful run. Show create_tables feeding independent GDP and employment branches, with preview_data waiting for both and generate_insights rendering the optional Claude report afterward.
+4. **Result (15 seconds):** Open preview_data logs and show country figures, record counts, and Germany GDP history. Open artifacts/insights/latest.html to show Haiku commentary, exact SQL evidence, and plots.
 5. **Reliability (20 seconds):** Explain primary keys and conflict updates. Show the rollback test and CI workflow. Show the passing hosted GitHub Actions run and distinguish automated checks from the separate live API test.
 6. **Tradeoff (5 seconds):** Every run refreshes a small historical window to capture revisions. Observations are annual; execution is daily.
 
 ## CV wording
 
-Built a Dockerized ETL pipeline using Python, Apache Airflow, and PostgreSQL to ingest and validate Eurostat GDP and employment data, with transactional upserts, retries, source metadata, automated tests, and reproducible analysis charts.
+Built a Dockerized ETL pipeline using Python, Apache Airflow, and PostgreSQL to ingest and validate Eurostat GDP and employment data, with transactional upserts, retries, source metadata, automated tests, and cached Claude Haiku reports grounded in SQL metrics.
 
 ## Published repository
 

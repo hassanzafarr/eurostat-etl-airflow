@@ -2,15 +2,15 @@
 
 [![Pipeline checks](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/workflows/ci.yml/badge.svg)](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/workflows/ci.yml)
 
-A reproducible batch pipeline that turns Eurostat GDP and employment API responses into validated PostgreSQL tables. Apache Airflow schedules the work, retries failures, and exposes a readable data preview after each successful load.
+A reproducible batch pipeline that turns Eurostat GDP and employment API responses into validated PostgreSQL tables. Apache Airflow schedules the work, retries failures, and generates an optional Claude Haiku economic report with SQL-backed evidence and plots.
 
-**Python 3.11 | Apache Airflow 2.10.2 | PostgreSQL 15 | Docker Compose**
+**Python 3.11 | Apache Airflow 2.10.2 | PostgreSQL 15 | Docker Compose | Claude Haiku**
 
 Built and maintained by Hassan Zafar. This project demonstrates API ingestion, multidimensional data parsing, data contracts, transactional SQL upserts, orchestration, and automated testing.
 
 ## See the result
 
-![Successful four-task Airflow workflow](docs/images/airflow-workflow.png)
+![Successful five-task Airflow workflow](docs/images/airflow-workflow.png)
 
 The verified snapshot contains **154 annual observations**: 77 GDP records and 77 employment records covering 2015-2025, for Germany, France, Italy, Spain, the Netherlands, Poland, and the EU aggregate. Counts describe the captured snapshot and can change when Eurostat publishes or revises data.
 
@@ -25,18 +25,21 @@ flowchart LR
     V --> P[(PostgreSQL: eurostat)]
     P --> L[Airflow data preview]
     P --> C[CSV snapshots and analysis charts]
+    P --> M[SQL report metrics]
+    M --> H[Optional Claude Haiku commentary]
+    H --> R[Validated HTML report and plots]
     A[Airflow scheduler] -. coordinates .-> X
 ```
 
-The DAG runs four tasks:
+The DAG runs five tasks:
 
 ```text
 create_tables
     +-- etl_gdp ---------+
-    +-- etl_employment --+--> preview_data
+    +-- etl_employment --+--> preview_data --> generate_insights
 ```
 
-Each dataset task extracts, transforms, validates, and loads its own data. The two branches can run independently; the preview waits for both. Large responses and DataFrames stay out of Airflow XCom. Airflow metadata uses the `airflow` database; analytics use the separate `eurostat` database on the same PostgreSQL service.
+Each dataset task extracts, transforms, validates, and loads its own data. The two branches can run independently; the preview waits for both. The final task renders plots and optionally adds validated Haiku commentary. Large responses and DataFrames stay out of Airflow XCom. Airflow metadata uses the `airflow` database; analytics use the separate `eurostat` database on the same PostgreSQL service.
 
 ## Quick start
 
@@ -66,7 +69,7 @@ The first build and database migration take a few minutes. `airflow-init` should
 1. Open [localhost:8080](http://localhost:8080).
 2. Log in with `airflow` / `airflow` using the default demo configuration.
 3. Open `eurostat_economic_indicators`, enable the DAG, and choose **Trigger DAG**.
-4. Select the new run. All four tasks should become green.
+4. Select the new run. All five tasks should become green.
 5. Open **preview_data > Logs** and search for `EUROSTAT DATA PREVIEW`.
 
 The schedule is **06:00 UTC daily** and new installations start paused. Enabling the DAG may also create the latest eligible scheduled run. Daily execution checks for updates to annual observations; it does not create daily economic measurements. Services must be running for the schedule to execute.
@@ -78,6 +81,21 @@ docker compose exec -T airflow-scheduler python scripts/smoke_test.py
 ```
 
 The PostgreSQL connection is supplied automatically as `AIRFLOW_CONN_EUROSTAT_POSTGRES`; environment-supplied connections do not appear in the Airflow Connections table.
+
+## Claude Haiku reports and plots
+
+Add `ANTHROPIC_API_KEY` to your private `.env` file and recreate the services. The default model is `claude-haiku-5-5`. Generate a report from stored observations:
+
+```bash
+docker compose up --build -d
+docker compose exec -T airflow-scheduler python scripts/generate_report.py --require-ai
+```
+
+Open **artifacts/insights/latest.html** locally for commentary, evidence, sources, and GDP/employment plots. The folder also contains Markdown, JSON, and standalone PNG plots. In Airflow, open **generate_insights > Logs** for the text report.
+
+[Integration and key setup](docs/AI_INTEGRATION.md) | [Real Haiku report example](docs/AI_REPORT_SAMPLE.md)
+
+SQL computes figures and annual changes. Claude selects evidence-linked findings and writes qualitative wording; the application rejects numeric prose, unknown references, incorrect trend directions, and common unsupported claims. Successful commentary is cached when evidence, model, and prompt match. No key or unavailable API produces a clearly labelled report with verified data and plots. Use `--require-ai` to require live or cached commentary. The key stays local and is not configured in GitHub CI.
 
 ## Reliability and loading strategy
 
@@ -137,7 +155,7 @@ python scripts/plot_analysis.py
 
 ## Tests and continuous integration
 
-The suite includes offline synthetic API fixtures, contract validation, HTTP failure handling, real PostgreSQL integration tests, and DAG dependency checks. Fixtures are clearly marked as synthetic; the charts use real exported observations.
+The suite includes offline synthetic API fixtures, contract validation, HTTP failure handling, real PostgreSQL integration tests, DAG dependency checks, and 22 golden evaluations for AI output grounding. Fixtures are clearly marked as synthetic; the charts use real exported observations.
 
 ```bash
 # All tests, including PostgreSQL and Airflow, inside the pinned runtime:
@@ -165,6 +183,10 @@ dags/
     database.py            Transactional PostgreSQL storage
     schema.sql             Shared idempotent schema
     preview.py             Read-only task-log tables
+    metrics.py             SQL-calculated report evidence
+    claude.py              Bounded Haiku calls and output checks
+    insights.py            Optional reporting and persistent cache
+    report.py              HTML/Markdown reports and plots
 sql/analysis.sql           SQL examples and economic interpretation
 scripts/                   Smoke test, exports, chart generation, screenshots
 tests/fixtures/            Synthetic JSON-stat examples

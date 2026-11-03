@@ -17,6 +17,11 @@ def main():
     parser.add_argument("--username", default="airflow")
     parser.add_argument("--password", default="airflow")
     parser.add_argument("--output", type=Path)
+    parser.add_argument(
+        "--require-ai",
+        action="store_true",
+        help="Require validated live or cached Claude commentary",
+    )
     args = parser.parse_args()
     session = requests.Session()
     session.auth = (args.username, args.password)
@@ -32,7 +37,13 @@ def main():
         try:
             state = api("GET")
             tasks = api("GET", "/tasks")["tasks"]
-            if len(tasks) == 4:
+            if {task["task_id"] for task in tasks} == {
+                "create_tables",
+                "etl_gdp",
+                "etl_employment",
+                "preview_data",
+                "generate_insights",
+            }:
                 break
         except requests.RequestException:
             pass
@@ -55,7 +66,7 @@ def main():
     finally:
         api("PATCH", json={"is_paused": state["is_paused"]})
     tasks = api("GET", "/dagRuns/" + run_id + "/taskInstances")["task_instances"]
-    assert len(tasks) == 4 and all(task["state"] == "success" for task in tasks)
+    assert len(tasks) == 5 and all(task["state"] == "success" for task in tasks)
     response = session.get(
         base + "/dagRuns/" + run_id + "/taskInstances/preview_data/logs/1",
         params={"full_content": "true"},
@@ -78,6 +89,7 @@ def main():
     )
     connection = get_connection()
     summaries = {}
+    ai_report = None
     try:
         with connection.cursor() as cursor:
             for table in ("eurostat_gdp", "eurostat_employment"):
@@ -91,8 +103,18 @@ def main():
                     "first_year": first,
                     "last_year": last,
                 }
+            cursor.execute(
+                "SELECT report FROM eurostat_insight_reports ORDER BY updated_at DESC LIMIT 1"
+            )
+            row = cursor.fetchone()
+            ai_report = row[0] if row else None
     finally:
         connection.close()
+    assert ai_report is not None, "The economic report was not persisted"
+    if args.require_ai:
+        assert ai_report["ai_status"] == "generated", ai_report.get(
+            "notice", "Claude commentary unavailable"
+        )
     report = {
         "verified_at_utc": datetime.now(timezone.utc).isoformat(),
         "run_id": run_id,
@@ -101,6 +123,9 @@ def main():
         "preview_log_verified": True,
         "schedule_paused": api("GET")["is_paused"],
         "datasets": summaries,
+        "ai_status": ai_report["ai_status"],
+        "ai_model": ai_report["model"],
+        "ai_cached": ai_report["cached"],
     }
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
