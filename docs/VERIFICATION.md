@@ -17,7 +17,7 @@ Verified locally on 3 November 2026 using Docker Desktop with Linux containers o
 | Report plots | HTML contains two rendered plots from the same SQL snapshot |
 | Preview retrieval through authenticated Airflow log API | Passed |
 | Upgrade of existing local database and real workflow | Passed; 77 records remain in each table |
-| Hosted GitHub Actions | [Passed all 52 tests and build checks](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/runs/41709478225) |
+| Hosted GitHub Actions | [Passed all 95 tests and build checks](https://github.com/hassanzafarr/eurostat-etl-airflow/actions/runs/41716169375) |
 
 [Machine-readable latest result](verification.json) includes the five-task run identifier, AI model/status/cache result, verification timestamp, and dataset coverage. Current screenshots show that successful run. The original fresh-stack check established startup reproducibility; the updated stack retained the existing database and was validated again with Haiku reporting.
 
